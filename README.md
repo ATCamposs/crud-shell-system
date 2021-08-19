@@ -1,4 +1,4 @@
-# test-fullstack | Matheus
+# test-fullstack
 
 ## Criar API capaz de fazer as seguintes ações:
 1. Mostrar as informações do servidor, tais como: processador, memória, espaço em disco, IP's das interfaces disponíveis;
