@@ -48,6 +48,16 @@ class UserService
         return ['status' => 'fail', 'data' => ['message' => trans('User cannot be registered, please try again.')]];
     }
 
+    public static function getFullUserData(int $id): ?object
+    {
+        $user_from_db = (new UserRepositoryIlluminate())->getFullUserData($id);
+        if (empty($user_from_db)) {
+            return null;
+        }
+        unset($user_from_db->password);
+        return $user_from_db;
+    }
+
     public static function getByID(int $id): ?User
     {
         $user_from_db = (new UserRepositoryIlluminate())->getUserByID($id);

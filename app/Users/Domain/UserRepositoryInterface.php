@@ -11,6 +11,7 @@ use app\Users\Domain\ValueObjects\Password;
 interface UserRepositoryInterface
 {
     public function index(): ?object;
+    public function getFullUserData(int $id): ?object;
     public function getUserByID(int $id): ?object;
     public function getUserByEmail(Email $email): ?object;
     public function checkEmailInUse(Email $email): bool;

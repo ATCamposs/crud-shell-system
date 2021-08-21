@@ -15,6 +15,22 @@ class UsersPresentation
         return json(200, UserService::index());
     }
 
+    public function get(Request $request, int $id): Response
+    {
+        $user = userService::getFullUserData($id);
+        var_dump($user);
+        if (empty($user)) {
+            return json(400, [
+                'status' => 'fail',
+                'data' => ['id' => trans('Incorrect user id.')]
+            ]);
+        }
+        return json(200, [
+            'status' => 'success',
+            'data' => ['user' => $user]
+        ]);
+    }
+
     public function update(Request $request): Response
     {
         if (!empty($request->input('username', ''))) {

@@ -24,12 +24,24 @@ class UserRepositoryIlluminate implements UserRepositoryInterface
 
     public function index(): ?object
     {
+        $users_table = $this->illuminteDB::table('users');
         try {
-            return $this->illuminteDB::table('users')->select('id', 'username', 'email', 'created')->get();
+            return $users_table->select('id', 'username', 'email', 'created')->get();
         } catch (PDOException $error) {
             Log::error($error->getMessage());
             return null;
         };
+    }
+
+    public function getFullUserData(int $id): ?object
+    {
+        $users_table = $this->illuminteDB::table('users');
+        try {
+            return $users_table->where('id', $id)->first();
+        } catch (PDOException $error) {
+            Log::error($error->getMessage());
+            return null;
+        }
     }
 
     public function getUserByID(int $id): ?object
