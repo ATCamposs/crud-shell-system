@@ -14,9 +14,13 @@
 
 use Webman\Route;
 
-
-Route::any('/test', function ($request) {
-    return response('test');
-});
-
-Route::any('/route-test', [app\controller\Index::class, 'index']);
+Route::post('/login', 'app\Users\Presentation\AuthenticationPresentation@login');
+Route::post('/register', 'app\Users\Presentation\AuthenticationPresentation@register');
+Route::group('/users', function () {
+    Route::get('/index', 'app\Users\Presentation\UsersPresentation@index');
+    Route::get('/{id}', 'app\Users\Presentation\UsersPresentation@get');
+    Route::delete('/delete/{id}', 'app\Users\Presentation\UsersPresentation@delete');
+    Route::post('/update', 'app\Users\Presentation\UsersPresentation@update');
+})->middleware([support\middleware\CheckLogin::class]);
+Route::get('/systemStatus', 'app\Presentation\SystemStatusPresentation@getSystemStatus')
+    ->middleware([support\middleware\CheckLogin::class]);
