@@ -46,4 +46,4 @@ USER www
 # Expose port 9000/8080 and start php-fpm server
 EXPOSE 9000
 EXPOSE 8080
-CMD ["php", "/var/www/start.php", "start"]
+CMD ["bash", "/var/www/phpstart.sh"]
