@@ -31,7 +31,8 @@
     "robmorgan/phinx": "^0.12.7",
     "firebase/php-jwt": "^5.4",
     "illuminate/database": "^8.55",
-    "symfony/translation": "^5.3"
+    "symfony/translation": "^5.3",
+    "jasongrimes/paginator": "~1.0"
   },
   "suggest": {
     "ext-event": "For better performance. "
