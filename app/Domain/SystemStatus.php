@@ -15,6 +15,11 @@ class SystemStatus
         foreach(['1M', '5M', '15M'] as $key => $time) {
             $cpu['load_avg'][$time] = $load_avg[$key];
         }
+        exec("lscpu | grep MHz", $all_mhz);
+        foreach(['Current', 'Max'] as $key => $value) {
+            $current_mhz = preg_split('/ +/', $all_mhz[$key]);
+            $cpu['mhz'][$value] = end($current_mhz);
+        }
         return $cpu;
     }
 
