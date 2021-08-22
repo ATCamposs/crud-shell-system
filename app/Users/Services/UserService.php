@@ -82,6 +82,12 @@ class UserService
         return $user->update($new_data);
     }
 
+    public static function updatePassword(int $id, string $password, string $confirm_password)
+    {
+        $user = UserService::getByID($id);
+        return $user->updatePassword($password, $confirm_password);
+    }
+
     public static function delete(int $id): array
     {
         if ((new UserRepositoryIlluminate())->delete($id)) {

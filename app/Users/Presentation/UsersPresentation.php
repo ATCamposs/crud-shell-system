@@ -38,12 +38,43 @@ class UsersPresentation
         if (!empty($request->input('email', ''))) {
             $new_data['email'] = $request->input('email');
         }
-        $id = $request->session()->get('user')['id'];
-        $update_return = UserService::update($id, $new_data);
+        if (!isset($new_data)) {
+            return json(400, [
+                'status' => 'fail',
+                'data' => ['message' => trans('At least one field must be filled.')]
+            ]);
+        }
+        global $user_from_request;
+        $current_user_id = $user_from_request->id();
+        $update_return = UserService::update($current_user_id, $new_data);
         if ($update_return['status'] === 'success') {
             return json(201, $update_return);
         }
         return json(400, $update_return);
+    }
+
+    public function updatePassword(Request $request): Response
+    {
+        $password = $request->input('password');
+        $confirm_password = $request->input('confirmPassword');
+        if (
+            !isset($password)
+            || !isset($confirm_password)
+            || empty(trim($password))
+            || empty(trim($confirm_password))
+        ) {
+            return json(400, [
+                'status' => 'fail',
+                'data' => ['message' => trans('Please fill in all required fields.')]
+            ]);
+        };
+        global $user_from_request;
+        $current_user_id = $user_from_request->id();
+        $update_pass_return = UserService::updatePassword($current_user_id, $password, $confirm_password);
+        if ($update_pass_return['status'] === 'success') {
+            return json(200, $update_pass_return);
+        }
+        return json(400, $update_pass_return);
     }
 
     public function delete(Request $request, int $id): Response

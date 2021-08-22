@@ -123,7 +123,10 @@ class UserRepositoryIlluminate implements UserRepositoryInterface
         $users_table = $this->illuminteDB::table('users');
         try {
             $selected_user = $users_table->where('id', $id);
-            if ($selected_user->update(['password' => $password, 'updated' => $now])) {
+            if ($selected_user->update([
+                'password' => password_hash((string) $password, PASSWORD_DEFAULT), 
+                'updated' => $now
+                ])) {
                 return true;
             };
         } catch (PDOException $error) {

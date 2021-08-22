@@ -21,6 +21,7 @@ Route::group('/users', function () {
     Route::get('/{id}', 'app\Users\Presentation\UsersPresentation@get');
     Route::delete('/delete/{id}', 'app\Users\Presentation\UsersPresentation@delete');
     Route::post('/update', 'app\Users\Presentation\UsersPresentation@update');
+    Route::post('/updatePassword', 'app\Users\Presentation\UsersPresentation@updatePassword');
 })->middleware([support\middleware\CheckLogin::class]);
 Route::get('/systemStatus', 'app\Presentation\SystemStatusPresentation@getSystemStatus')
     ->middleware([support\middleware\CheckLogin::class]);

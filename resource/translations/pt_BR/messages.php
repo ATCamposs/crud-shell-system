@@ -39,6 +39,7 @@ return [
     'User cannot be registered, please try again.' => 'Usuário não pode ser registrado, tente novamente.',
     'Incorrect user id.' => 'Id do usuário incorreta.',
     'Invalid activation code.' => 'Código de ativação inválido.',
+    'At least one field must be filled.' => 'Ao menos um campo deve estar preenchido.',
 
     //authentication
     'Please login again.' => 'Por favor faça login novamente.',
