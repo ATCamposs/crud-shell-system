@@ -16,7 +16,7 @@ class SystemStatus
             $cpu['load_avg'][$time] = $load_avg[$key];
         }
         exec("lscpu | grep MHz", $all_mhz);
-        foreach(['Current', 'Max'] as $key => $value) {
+        foreach(['current', 'max'] as $key => $value) {
             $current_mhz = preg_split('/ +/', $all_mhz[$key]);
             $cpu['mhz'][$value] = end($current_mhz);
         }
@@ -44,7 +44,7 @@ class SystemStatus
     public function getDiskUsage()
     {
         exec ('df |grep sd', $available_disks);
-        $fields = ['FileSystem', 'Total', "Used", "Free", "Percentage Used"];
+        $fields = ['fileSystem', 'total', "used", "free", "percentageUsed"];
         $disks_to_show = [];
         foreach ($available_disks as $disk) {
             $disk = preg_split('/ +/', $disk);
