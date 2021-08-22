@@ -11,11 +11,7 @@ class CheckLogin implements MiddlewareInterface
 {
     public function process(Request $request, callable $next): Response
     {
-        $session = $request->session();
-        $user = $session->get('user');
-        if ($user) {
-            return $next($request);
-        }
+        global $user_from_request;
         if (empty($request->header('authorization'))) {
             return json(401, [
                 'status' => 'fail',
@@ -36,7 +32,7 @@ class CheckLogin implements MiddlewareInterface
                 'message' => trans('Please login again.')
             ]);
         }
-        $session->set('user', $auth_user_data);
+        $user_from_request = $auth_user_data;
         return $next($request);
     }
 }

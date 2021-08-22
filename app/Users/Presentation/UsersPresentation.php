@@ -18,7 +18,6 @@ class UsersPresentation
     public function get(Request $request, int $id): Response
     {
         $user = userService::getFullUserData($id);
-        var_dump($user);
         if (empty($user)) {
             return json(400, [
                 'status' => 'fail',
@@ -49,21 +48,20 @@ class UsersPresentation
 
     public function delete(Request $request, int $id): Response
     {
-        $session = $request->session();
-        $session_id = $session->get('user')['id'];
+        global $user_from_request;
+        $current_user_id = $user_from_request['id'];
         if (!isset($id) || empty($id)) {
             return json(400, [
                 'status' => 'fail',
                 'data' => ['id' => trans('Please fill in all required fields.')]
             ]);
         };
-        if ($session_id != $id) {
+        if ($current_user_id != $id) {
             return json(400, [
                 'status' => 'fail',
                 'data' => ['id' => trans('Incorrect user id.')]
             ]);
         }
-        $session->delete('user');
         $delete_return = $this->auth_services->delete($id);
         if ($delete_return['status'] === 'success') {
             return json(201, $delete_return);
