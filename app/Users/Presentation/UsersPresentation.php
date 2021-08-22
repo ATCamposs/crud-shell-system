@@ -49,7 +49,7 @@ class UsersPresentation
     public function delete(Request $request, int $id): Response
     {
         global $user_from_request;
-        $current_user_id = $user_from_request['id'];
+        $current_user_id = $user_from_request->id();
         if (!isset($id) || empty($id)) {
             return json(400, [
                 'status' => 'fail',

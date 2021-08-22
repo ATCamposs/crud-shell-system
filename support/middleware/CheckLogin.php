@@ -3,6 +3,7 @@
 namespace support\middleware;
 
 use app\Users\Infrastructure\Authentication\Tokenization\JWTTokenization;
+use app\Users\Services\UserService;
 use Webman\MiddlewareInterface;
 use Webman\Http\Response;
 use Webman\Http\Request;
@@ -32,7 +33,14 @@ class CheckLogin implements MiddlewareInterface
                 'message' => trans('Please login again.')
             ]);
         }
-        $user_from_request = $auth_user_data;
+        $user_from_token = UserService::getByID($auth_user_data['id']);
+        if (empty($user_from_token)) {
+            return json(401, [
+                'status' => 'fail',
+                'message' => trans('This user does not exist in the system.')
+            ]);
+        }
+        $user_from_request = $user_from_token;
         return $next($request);
     }
 }

@@ -47,6 +47,7 @@ return [
     'You authorization code is invalid.' => 'Seu código de autorização é inválido.',
     'You need to login to view this content.' => 'Você precisa fazer login para ver este conteúdo.',
     'Signature verification failed.' => 'Falha na verificação da assinatura.',
+    'This user does not exist in the system.' => 'Este usuário não existe no sistema.',
 
     //access level
     'Invalid access level.' => 'Nível de acesso inválido.',
