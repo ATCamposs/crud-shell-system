@@ -17,6 +17,7 @@ services:
     ports:
       - "9000:9000"
       - "8080:8080"
+      - "4747:4747"
     volumes:
       - ./:/var/www
     networks:

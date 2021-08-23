@@ -21,7 +21,9 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     procps \
-    iproute2
+    iproute2 \
+    nodejs \
+    npm
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -48,4 +50,5 @@ USER www
 # Expose port 9000/8080 and start php-fpm server
 EXPOSE 9000
 EXPOSE 8080
+EXPOSE 4747
 CMD ["bash", "/var/www/phpstart.sh"]
