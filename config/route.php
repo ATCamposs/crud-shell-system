@@ -14,6 +14,8 @@
 
 use Webman\Route;
 
+Route::fallback(fn() => json(200, 'Not Found!'));
+
 Route::post('/login', 'app\Users\Presentation\AuthenticationPresentation@login');
 Route::post('/register', 'app\Users\Presentation\AuthenticationPresentation@register');
 Route::group('/users', function () {
