@@ -2,16 +2,28 @@
 
 ## Como iniciar o projeto
  - Clone o repositório
-   - `git clone https://github.com/jpizzribeiro/test-fullstack-andre.git`
+   - `git clone git@github.com:jpizzribeiro/test-fullstack-andre.git`
  - Entre na pasta principal
    - `cd test-fullstack-andre`
+ - Copie o arquivo .env.backup para .env
+   - `cp .env.backup .env`
  - Instale os containers
    - `docker-compose up -d`
- - Rode as migrations
-   - `docker exec -it app vendor/bin/phinx migrate`
+ - Entre no container principal
+   - `docker exec -it app /bin/bash`
+ - Dentro do container principal rode os comandos de instalação e inicialização
+   - `composer install`
+   - `vendor/bin/phinx migrate`
+   - `cd frontend && npm install`
+   - `npm run serve &`
+   - `cd /var/www/ && php start.php start`
  - Entre pelo link em seu navegador
    - `http://localhost:8080`
 
+## Nas próximas vezes que quiser acessar a plataforma ou reiniciar a maquina
+ - Rode os comandos
+   - `docker exec -it app /bin/bash`
+   - `php start.php start & cd frontend/ && npm run serve &`
 
 
 # test-fullstack

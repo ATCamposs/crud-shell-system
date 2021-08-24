@@ -44,15 +44,6 @@ COPY . /var/www
 # Copy existing application directory permissions
 COPY --chown=www:www . /var/www
 
-RUN composer install
-
-# Install dependencies
-WORKDIR /var/www/frontend
-RUN npm install
-
-# Back to working directory
-WORKDIR /var/www
-
 # Change current user to www
 USER www
 
@@ -60,4 +51,3 @@ USER www
 EXPOSE 9000
 EXPOSE 8080
 EXPOSE 4747
-CMD ["bash", "/var/www/phpstart.sh"]
