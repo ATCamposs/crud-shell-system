@@ -28,7 +28,7 @@ class Username
         if (strlen($username) > 25) {
             $errors[] = trans('Your username must be less than 26 characters.');
         }
-        if (!preg_match('/^[A-z]+$/m', $username)) {
+        if (!preg_match('/^[A-z0-9]+$/m', $username)) {
             $errors[] = trans('Your username cannot have special characters.');
         }
         if (count($errors) > 0) {

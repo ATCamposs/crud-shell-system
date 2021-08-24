@@ -51,7 +51,7 @@ class User
             if (is_array($username)) {
                 return ['status' => 'fail', 'data' => ['username' => $username]];
             }
-            if ($this->getRepository()->checkUsernameInUse($this->id, $username)) {
+            if ($this->getRepository()->checkUsernameInUse($username, $this->id)) {
                 return ['status' => 'fail', 'data' => ['username' => trans('The username is already in use.')]];
             };
             $return_message['username'] = trans('Username updated successfully.');
@@ -61,7 +61,7 @@ class User
             if(is_array($email)) {
                 return ['status' => 'fail', 'data' => ['email' => $email]];
             }
-            if ($this->getRepository()->checkEmailInUse($this->id, $email)) {
+            if ($this->getRepository()->checkEmailInUse($email, $this->id)) {
                 return ['status' => 'fail', 'data' => ['email' => trans('This email already in use.')]];
             };
             $return_message['email'] = trans('Email updated successfully.');
