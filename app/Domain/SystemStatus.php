@@ -13,12 +13,12 @@ class SystemStatus
         $cpu['Núcleos'] = trim(shell_exec($command));
         $load_avg = sys_getloadavg();
         foreach(['1 Minuto', '5 Minutos', '15 Minutos'] as $key => $time) {
-            $cpu['Media de uso'][$time] = $load_avg[$key] . ' %';
+            $cpu['Media de uso da CPU'][$time] = $load_avg[$key] . ' %';
         }
         exec("lscpu | grep MHz", $all_mhz);
         foreach(['Atual', 'Maxima'] as $key => $value) {
             $current_mhz = preg_split('/ +/', $all_mhz[$key]);
-            $cpu['Frequência'][$value] = end($current_mhz);
+            $cpu['Frequência'][$value] = number_format((int) end($current_mhz) , 0, ',', '.') . ' MHz';
         }
         return $cpu;
     }
