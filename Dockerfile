@@ -44,6 +44,15 @@ COPY . /var/www
 # Copy existing application directory permissions
 COPY --chown=www:www . /var/www
 
+RUN composer install
+
+# Install dependencies
+WORKDIR /var/www/frontend
+RUN npm install
+
+# Back to working directory
+WORKDIR /var/www
+
 # Change current user to www
 USER www
 
