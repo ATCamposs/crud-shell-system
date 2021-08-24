@@ -8,17 +8,17 @@ class SystemStatus
     {
         $cpu = [];
         exec("cat /proc/cpuinfo", $details);
-        $cpu['name'] = trim(explode(':', $details[4])[1]);
+        $cpu['Nome'] = trim(explode(':', $details[4])[1]);
         $command = "cat /proc/cpuinfo | grep processor | wc -l";
-        $cpu['cores'] = trim(shell_exec($command));
+        $cpu['Núcleos'] = trim(shell_exec($command));
         $load_avg = sys_getloadavg();
-        foreach(['1M', '5M', '15M'] as $key => $time) {
-            $cpu['load_avg'][$time] = $load_avg[$key];
+        foreach(['1 Minuto', '5 Minutos', '15 Minutos'] as $key => $time) {
+            $cpu['Media de uso'][$time] = $load_avg[$key] . ' %';
         }
         exec("lscpu | grep MHz", $all_mhz);
-        foreach(['current', 'max'] as $key => $value) {
+        foreach(['Atual', 'Maxima'] as $key => $value) {
             $current_mhz = preg_split('/ +/', $all_mhz[$key]);
-            $cpu['mhz'][$value] = end($current_mhz);
+            $cpu['Frequência'][$value] = end($current_mhz);
         }
         return $cpu;
     }
@@ -44,7 +44,7 @@ class SystemStatus
     public function getDiskUsage()
     {
         exec ('df |grep sd', $available_disks);
-        $fields = ['fileSystem', 'total', "used", "free", "percentageUsed"];
+        $fields = ['Pasta', 'Espaço total', "Usado", "Livre", "Porcentagem usada"];
         $disks_to_show = [];
         foreach ($available_disks as $disk) {
             $disk = preg_split('/ +/', $disk);
