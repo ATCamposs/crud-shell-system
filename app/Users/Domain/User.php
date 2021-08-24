@@ -47,30 +47,21 @@ class User
     {
         $return_message = [];
         if (isset($new_data['username'])) {
-            if ((string) $this->username === $new_data['username']) {
-                return [
-                    'status' => 'fail',
-                    'data' => ['username' => trans('The new username is the same as the old username.')]
-                ];
-            }
             $username = Username::validate($new_data['username']);
             if (is_array($username)) {
                 return ['status' => 'fail', 'data' => ['username' => $username]];
             }
-            if ($this->getRepository()->checkUsernameInUse($username)) {
-                return ['status' => 'fail', 'data' => ['username' => trans('The username is already in use')]];
+            if ($this->getRepository()->checkUsernameInUse($this->id, $username)) {
+                return ['status' => 'fail', 'data' => ['username' => trans('The username is already in use.')]];
             };
             $return_message['username'] = trans('Username updated successfully.');
         }
         if (isset($new_data['email'])) {
-            if ((string) $this->email === $new_data['email']) {
-                return ['status' => 'fail', 'data' => ['email' => trans('The new email is the same as the old email.')]];
-            }
             $email = Email::validate($new_data['email']);
             if(is_array($email)) {
                 return ['status' => 'fail', 'data' => ['email' => $email]];
             }
-            if ($this->getRepository()->checkEmailInUse($email)) {
+            if ($this->getRepository()->checkEmailInUse($this->id, $email)) {
                 return ['status' => 'fail', 'data' => ['email' => trans('This email already in use.')]];
             };
             $return_message['email'] = trans('Email updated successfully.');

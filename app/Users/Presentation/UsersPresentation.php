@@ -79,21 +79,13 @@ class UsersPresentation
 
     public function delete(Request $request, int $id): Response
     {
-        global $user_from_request;
-        $current_user_id = $user_from_request->id();
         if (!isset($id) || empty($id)) {
             return json(400, [
                 'status' => 'fail',
                 'data' => ['id' => trans('Please fill in all required fields.')]
             ]);
         };
-        if ($current_user_id != $id) {
-            return json(400, [
-                'status' => 'fail',
-                'data' => ['id' => trans('Incorrect user id.')]
-            ]);
-        }
-        $delete_return = $this->auth_services->delete($id);
+        $delete_return = UserService::delete($id);
         if ($delete_return['status'] === 'success') {
             return json(201, $delete_return);
         }

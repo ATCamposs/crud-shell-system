@@ -68,13 +68,14 @@ class UserRepositoryIlluminate implements UserRepositoryInterface
         };
     }
 
-    public function checkUsernameInUse(Username $username): bool
+    public function checkUsernameInUse(Username $username, int $id = 0): bool
     {
         $users_table = $this->illuminteDB::table('users');
         try {
-            $selected_email = $users_table->select('username');
-            $username = $selected_email->where('username', $username);
-            if (!empty($username->first())) {
+            $selected_username = $users_table->select('id', 'username');
+            $username = $selected_username->where('username', $username);
+            $user = $username->first();
+            if (!empty($user) && $user->id != $id) {
                 return true;
             }
             return false;
@@ -84,13 +85,14 @@ class UserRepositoryIlluminate implements UserRepositoryInterface
         };
     }
 
-    public function checkEmailInUse(Email $email): bool
+    public function checkEmailInUse(Email $email, int $id = 0): bool
     {
         $users_table = $this->illuminteDB::table('users');
         try {
-            $selected_email = $users_table->select('email');
+            $selected_email = $users_table->select('id', 'email');
             $user_email = $selected_email->where('email', $email);
-            if (!empty($user_email->first())) {
+            $user = $user_email->first();
+            if (!empty($user) && $user->id != $id) {
                 return true;
             }
             return false;
