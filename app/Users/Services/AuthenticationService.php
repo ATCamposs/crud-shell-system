@@ -36,7 +36,14 @@ class AuthenticationService
         }
         if (password_verify((string) $password, (string) $user->password())) {
             $token = $this->jwt_tokenization->encode(['id' => $user->id(), 'username' => (string) $user->username()]);
-            return ['status' => 'success', 'data' => ['token' => $token]];
+            return [
+                'status' => 'success', 'data' => [
+                    'id' => (int) $user->id(),
+                    'username' => (string) $user->username(),
+                    'email' => (string) $user->email(),
+                    'token' => $token,
+                ]
+            ];
         };
         return ['status' => 'fail', 'data' => ['password' => trans('Invalid Password.')]];
     }
