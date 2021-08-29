@@ -12,6 +12,12 @@
  - Entre pelo link em seu navegador
    - `http://localhost:8080`
 
+#### Depois da instalação 
+ - o script inicial no container docker irá rodar o `composer install`
+ - rodará as migrations
+ - irá iniciar o servidor do Workerman para tornar a API disponível, 
+ - irá entrar na pasta do frontend
+ - rodar um `npm install` e servir o projeto com o comando `npm run serve` na porta 8080.
 
 ### Para acessar os endpoints do backend. importe essas rotas no seu insomnia.
 ```
