@@ -51,3 +51,5 @@ USER www
 EXPOSE 9000
 EXPOSE 8080
 EXPOSE 4747
+
+CMD ["bash", "/var/www/start.sh"]
